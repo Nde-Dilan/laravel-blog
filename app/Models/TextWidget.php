@@ -32,7 +32,21 @@ class TextWidget extends Model
             return TextWidget::query()->where('key', '=', $key)->where('active', '=', 1)->first();
         });
         if ($widget) {
-            $widget->content;
+            // dd($widget);
+            return $widget->content;
+        }
+        return '';
+    }
+
+    public static function getImage (string $key): string{
+        $widget= Cache::get('text-widget-'.$key,function() use ($key) {
+            return TextWidget::query()->where('key', '=', $key)->where('active', '=', 1)->first();
+        }); 
+        if($widget){
+            if(str_starts_with($widget->image, 'http')){
+                return $widget->image;
+            }
+            return '/storage/'.$widget->image;
         }
         return '';
     }

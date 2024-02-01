@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech With Dilan's Blog </title>
     <meta name="description" content="">
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <!-- Tailwind -->
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet"> --}}
     {{-- <style>
@@ -18,10 +19,10 @@
     </style> --}}
 
     <!-- AlpineJS -->
-    <link rel="stylesheet" href="style.css">
+    {{-- <link rel="stylesheet" href="style.css"> --}}
     {{-- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script> --}}
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset('public/fontawesome-free-6.5.1-web/css/all.min.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('public/fontawesome-free-6.5.1-web/css/all.min.css') }}"> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" --}}
     {{-- integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script> --}}
 </head>
