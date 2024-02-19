@@ -4,19 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech With Dilan's Blog </title>
-    <meta name="description" content="">
+    <meta name="author" content="Nde Dilan">
+    {{-- INFO: Since the layout will be available everywhere we can dynamically change the title and the other meta data--}}
+    <title>{{ $metaTitle ?: "Tech With Dilan's Blog"}} </title>
+    <meta  name="description" content="{{ $metaDescription ?: "Dive into the tech world with Tech With Dilan's Blog"}}">
+    <meta name="keywords" content="{{ $metaKeywords ?: "Tech Computer JS Python Coding fun program programming Dilan's Blog"}}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Tailwind -->
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet"> --}}
-    {{-- <style>
-        @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
+    <style>
+        /* @import url('https://fonts.googleapis.com/css?family=Karla:400,700&display=swap');
 
         .font-family-karla {
             font-family: karla;
+        } */
+
+        pre {
+            padding: 1rem;
+            background: #1a202c;
+            color:white;
+            border-radius: .5rem;
+            margin-bottom:1rem;
         }
-    </style> --}}
+    </style>
 
     <!-- AlpineJS -->
     {{-- <link rel="stylesheet" href="style.css"> --}}
@@ -27,7 +38,7 @@
     {{-- integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script> --}}
 </head>
 
-<body class="bg-white font-family-karla">
+<body class="bg-gradient-to-r from-cyan-500 to-blue-500 font-family-karla">
 
     <!-- Top Bar Nav -->
     <nav class="w-full py-4 bg-blue-800 shadow">
@@ -35,8 +46,9 @@
 
             <nav>
                 <ul class="flex items-center justify-between font-bold text-sm text-white uppercase no-underline">
-                    <li><a class="hover:text-gray-200 hover:underline px-4" href="#">Shop</a></li>
-                    <li><a class="hover:text-gray-200 hover:underline px-4" href="#">About</a></li>
+                    {{-- //After adding/renaming the route inside web.php file, we can now use the route helper function to generate the URL --}}
+                    <li><a class="hover:text-gray-200 hover:underline px-4" href="{{route('home')}}">Home</a></li>
+                    <li><a class="hover:text-gray-200 hover:underline px-4" href="{{route('about-us')}}">About</a></li>
                 </ul>
             </nav>
 
@@ -44,13 +56,13 @@
                 <a class="" href="#">
                     <i class="fab fa-facebook"></i>
                 </a>
-                <a class="pl-6" href="#">
-                    <i class="fab fa-instagram"></i>
+                <a class="pl-6" href="https://wa.me/+237694525931">
+                    <i class="fab fa-whatsapp"></i>
                 </a>
-                <a class="pl-6" href="#">
-                    <i class="fab fa-twitter"></i>
+                <a class="pl-6" href="https://github.com/Nde-Dilan/">
+                    <i class="fab fa-github"></i>
                 </a>
-                <a class="pl-6" href="#">
+                <a class="pl-6" href="https://www.linkedin.com/in/nde-dilan/">
                     <i class="fab fa-linkedin"></i>
                 </a>
             </div>
@@ -61,26 +73,7 @@
     <x-header></x-header>
 
     <!-- Topic Nav -->
-    <nav class="w-full py-4 border-t border-b bg-gray-100" x-data="{ open: false }">
-        <div class="block sm:hidden">
-            <a href="#"
-                class="block md:hidden text-base font-bold uppercase text-center flex justify-center items-center"
-                @click="open = !open">
-                Topics <i :class="open ? 'fa-chevron-down' : 'fa-chevron-up'" class="fas ml-2"></i>
-            </a>
-        </div>
-        <div :class="open ? 'block' : 'hidden'" class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
-            <div
-                class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Technology</a>
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Automotive</a>
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Finance</a>
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Politics</a>
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Culture</a>
-                <a href="#" class="hover:bg-gray-400 rounded py-2 px-4 mx-2">Sports</a>
-            </div>
-        </div>
-    </nav>
+   <x-nav-bar></x-nav-bar>
 
 
     <div class="container mx-auto flex flex-wrap py-6">
@@ -91,9 +84,9 @@
 
     </div>
 
-    <footer class="w-full border-t bg-white pb-12">
+    <footer class="w-full border-t bg-white pb-12 blue-900">
         {{-- TODO: Fetch tech related images and assign them to some post, like that a user can be redirected to a post with an imgae --}}
-        <div class="relative w-full flex items-center invisible md:visible md:pb-12" x-data="getCarouselData()">
+        {{-- <div class="relative w-full flex items-center invisible md:visible md:pb-12" x-data="getCarouselData()">
             <button
                 class="absolute bg-blue-800 hover:bg-blue-700 text-white text-2xl font-bold hover:shadow rounded-full w-16 h-16 ml-12"
                 x-on:click="decrement()">
@@ -107,9 +100,9 @@
                 x-on:click="increment()">
                 &#8594;
             </button>
-        </div>
+        </div> --}}
         {{-- TODO: Using bootstrap or tailwindcss customize the footer --}}
-        <div class="w-full container mx-auto flex flex-col items-center">
+        <div class="w-full blue-900 container mx-auto flex flex-col items-center">
             <div class="flex flex-col md:flex-row text-center md:text-left md:justify-between py-6">
                 <a href="#" class="uppercase px-3">About Us</a>
                 <a href="#" class="uppercase px-3">Privacy Policy</a>

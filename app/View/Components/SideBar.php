@@ -25,13 +25,14 @@ class SideBar extends Component
     {
         $categories = Category::query()
             ->join('category_posts', 'categories.id', '=', 'category_posts.category_id')
+            ->join('posts', 'category_posts.post_id', '=', 'posts.id')
             ->select('categories.title', 'categories.slug', DB::raw('count(*) as total'))
+            ->where('posts.active', true)
             ->groupBy('categories.id')
             ->orderByDesc('total')
-            ->limit(5)
             ->get();
 
-            //TODO: Understand this query and continuz with the 46 mins left
-        return view('components.side-bar');
+            //DONE: Understand this query and continue with the 46 mins left
+        return view('components.side-bar',compact(['categories']));
     }
 }

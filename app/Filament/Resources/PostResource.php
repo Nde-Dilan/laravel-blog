@@ -49,6 +49,9 @@ class PostResource extends Resource
                             ->hint('Translatable')
                             ->required()
                             ->columnSpanFull(),
+                        Forms\Components\TextInput::make('meta_title'),
+                        Forms\Components\TextInput::make('meta_description'),
+                        Forms\Components\TextInput::make('meta_keywords'),
                         Forms\Components\Toggle::make('active')
                             ->required(),
                         Grid::make(2)
@@ -97,7 +100,6 @@ class PostResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\EditAction::make(),
             ])
@@ -120,7 +122,6 @@ class PostResource extends Resource
         return [
             'index' => Pages\ListPosts::route('/'),
             'create' => Pages\CreatePost::route('/create'),
-            'view' => Pages\ViewPost::route('/{record}'),
             'edit' => Pages\EditPost::route('/{record}/edit'),
         ];
     }

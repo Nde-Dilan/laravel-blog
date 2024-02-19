@@ -16,7 +16,7 @@ class Post extends Model
     protected $casts = [
         "published_at"=>'datetime'
     ];
-    protected $fillable = ["title","slug","thumbnail","body","active","published_at","user_id"];
+    protected $fillable = ["title","slug","thumbnail","body","active","published_at","user_id",'meta_title','meta_description','meta_keywords'];
 
     public function user() : BelongsTo {
         return $this->belongsTo(User::class);

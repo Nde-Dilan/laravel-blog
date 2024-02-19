@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Models\Post;
+use App\Models\Category;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PostController extends Controller
@@ -84,10 +85,19 @@ class PostController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Return the specified resource from storage by category.
      */
-    public function destroy(Post $post)
+    public function byCategory(Category $category)
     {
-        //
+        $posts = Post::query()
+        ->join('category_posts','posts.id','=','category_posts.post_id')
+        ->where('category_posts.category_id','=',$category->id)
+        ->where('active','=',true)
+        ->whereDate('published_at','<=', Carbon::now())
+        ->orderBy('published_at','desc')
+        ->paginate(10);
+        // dd($posts);
+        //DONE: Always check the query two times
+       return view('posts.index',compact(['posts','category']));
     }
 }

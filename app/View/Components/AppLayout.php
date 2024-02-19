@@ -9,12 +9,13 @@ use Illuminate\View\Component;
 class AppLayout extends Component
 {
     /**
-     * Create a new component instance.
+     * Create a new component instance., so if we want to pass data to the layout, we can do so by passing it to the component.
      */
-    public function __construct()
+    public function __construct(public ?string $metaTitle=null, public ?string $metaDescription=null, public ?string $metaKeywords=null)
     {
         //
     }
+   
 
     /**
      * Get the view / contents that represent the component.

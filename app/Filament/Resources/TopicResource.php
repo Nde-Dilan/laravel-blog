@@ -2,20 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TextWidgetResource\Pages;
-use App\Filament\Resources\TextWidgetResource\RelationManagers;
-use App\Models\TextWidget;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Topic;
+use Filament\Forms\Set;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Str;
+use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\TopicResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\TopicResource\RelationManagers;
 
-class TextWidgetResource extends Resource
+class TopicResource extends Resource
 {
-    protected static ?string $model = TextWidget::class;
+    protected static ?string $model = Topic::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Website Builder Part';
@@ -25,17 +27,15 @@ class TextWidgetResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('key')
+                Forms\Components\TextInput::make('title')
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\FileUpload::make('image')
-                    ->image(),
-                Forms\Components\TextInput::make('title')
-                    ->maxLength(2048),
-                Forms\Components\RichEditor::make('content')
-                    ->columnSpanFull(),
-                Forms\Components\Toggle::make('active')
-                    ->required(),
             ]);
     }
 
@@ -43,13 +43,10 @@ class TextWidgetResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('key')
-                    ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
-                Tables\Columns\IconColumn::make('active')
-                    ->boolean(),
+                Tables\Columns\TextColumn::make('slug')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -64,6 +61,7 @@ class TextWidgetResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -72,19 +70,10 @@ class TextWidgetResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTextWidgets::route('/'),
-            'create' => Pages\CreateTextWidget::route('/create'),
-            'edit' => Pages\EditTextWidget::route('/{record}/edit'),
+            'index' => Pages\ManageTopics::route('/'),
         ];
     }
 }
