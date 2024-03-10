@@ -1,4 +1,25 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>{{ config('app.name', 'Laravel') }}</title>
+
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+     </head>
+    <body class="font-sans antialiased">
+       
+    </body>
+</html>
+ --}}
+ 
+ 
+ <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -36,44 +57,53 @@
     {{-- <link rel="stylesheet" href="{{ asset('public/fontawesome-free-6.5.1-web/css/all.min.css') }}"> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" --}}
     {{-- integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script> --}}
+    <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+   
+
 </head>
 
-<body class="bg-gradient-to-r from-cyan-500 to-blue-500 font-family-karla">
+<body class="font-family-karla">
+        @include('layouts.navigation')
 
+
+   
     <!-- Top Bar Nav -->
-    <nav class="w-full py-4 bg-blue-800 shadow">
-        <div class="w-full container mx-auto flex flex-wrap items-center justify-between">
+   @auth
+   <nav class="w-full py-4 shadow ">
+    <div class="w-full container mx-auto flex flex-wrap items-center justify-between">
+        
+        <nav class="w-full px-6">
+            <ul class="flex items-center justify-between font-bold text-sm text-white uppercase no-underline">
+                {{-- //After adding/renaming the route inside web.php file, we can now use the route helper function to generate the URL --}}
+                <li><a class="hover:text-gray-200 hover:ml-4" href="{{route('home')}}">Home</a></li>
+                <li><a class="hover:text-gray-200 hover:mr-4" href="{{route('about-us')}}">About</a></li>
+            </ul>
+        </nav>
 
-            <nav>
-                <ul class="flex items-center justify-between font-bold text-sm text-white uppercase no-underline">
-                    {{-- //After adding/renaming the route inside web.php file, we can now use the route helper function to generate the URL --}}
-                    <li><a class="hover:text-gray-200 hover:underline px-4" href="{{route('home')}}">Home</a></li>
-                    <li><a class="hover:text-gray-200 hover:underline px-4" href="{{route('about-us')}}">About</a></li>
-                </ul>
-            </nav>
-
-            <div class="flex items-center text-lg no-underline text-white pr-6">
-                <a class="" href="#">
-                    <i class="fab fa-facebook"></i>
-                </a>
-                <a class="pl-6" href="https://wa.me/+237694525931">
-                    <i class="fab fa-whatsapp"></i>
-                </a>
-                <a class="pl-6" href="https://github.com/Nde-Dilan/">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a class="pl-6" href="https://www.linkedin.com/in/nde-dilan/">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-            </div>
+        <div class="flex items-center text-lg no-underline text-white pr-6">
+            <a class="" href="#">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a class="pl-6" href="https://wa.me/+237694525931">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+            <a class="pl-6" href="https://github.com/Nde-Dilan/">
+                <i class="fab fa-github"></i>
+            </a>
+            <a class="pl-6" href="https://www.linkedin.com/in/nde-dilan/">
+                <i class="fab fa-linkedin"></i>
+            </a>
         </div>
+    </div>
 
-    </nav>
+</nav>
 
-    <x-header></x-header>
+<x-header></x-header>
 
-    <!-- Topic Nav -->
-   <x-nav-bar></x-nav-bar>
+<!-- Topic Nav -->
+<x-nav-bar></x-nav-bar>
+   @endauth
 
 
     <div class="container mx-auto flex flex-wrap py-6">
@@ -103,13 +133,14 @@
         </div> --}}
         {{-- TODO: Using bootstrap or tailwindcss customize the footer --}}
         <div class="w-full blue-900 container mx-auto flex flex-col items-center">
-            <div class="flex flex-col md:flex-row text-center md:text-left md:justify-between py-6">
-                <a href="#" class="uppercase px-3">About Us</a>
-                <a href="#" class="uppercase px-3">Privacy Policy</a>
-                <a href="#" class="uppercase px-3">Terms & Conditions</a>
-                <a href="#" class="uppercase px-3">Contact Us</a>
+            <div class="flex text-sm md:font-bold md:flex-row text-center md:text-left md:justify-between py-6">
+                <a href="{{route('about-us')}}" class="uppercase px-3">About Us</a>
+                <a href="{{route('about-us')}}" class="uppercase px-3">Privacy Policy</a>
+                <a href="{{route('about-us')}}" class="uppercase px-3">Terms & Conditions</a>
+                <a href="{{route('about-us')}}" class="uppercase px-3">Contact Us</a>
             </div>
             <div class="uppercase pb-6">&copy; techwithdilan.com</div>
+            <p>2024, All rights reserved.</p>
         </div>
     </footer>
 

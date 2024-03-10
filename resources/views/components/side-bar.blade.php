@@ -1,5 +1,5 @@
  <!-- Sidebar Section -->
- <aside class="w-full md:w-1/3 flex flex-col items-center px-3">
+ <aside class="w-full md:w-1/3 right_section flex flex-col items-center px-3">
 
 
     <div class="w-full bg-white shadow flex flex-col flex-wrap my-4 p-6">

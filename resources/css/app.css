@@ -1,6 +1,24 @@
-@import '/node_modules/@fortawesome/fontawesome-free/css/all.min.css';
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+body, html {
+    
+    background: #1a202c;
+    /* color:white; */
+    padding: 1.2em 1.02em;
+}
+/*TODO: Play with this sidebar untill it's nice on the UI*/
+.right_section{
+    position: fixed;
+    top: 25%;
+    right: 0;
+    z-index: 9;
+    overflow-y: hidden;
+}
+
+footer{
+    background: #000;
+    position: inherit;
+    z-index: 99999;
+}
