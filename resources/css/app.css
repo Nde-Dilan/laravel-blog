@@ -10,11 +10,11 @@ body, html {
 }
 /*TODO: Play with this sidebar untill it's nice on the UI*/
 .right_section{
-    position: fixed;
+    /* position: fixed; */
     top: 25%;
     right: 0;
     z-index: 9;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
 }
 
 footer{
@@ -22,3 +22,6 @@ footer{
     position: inherit;
     z-index: 99999;
 }
+
+/*“ Simplicity is the essence of happiness. ”
+  — Cedric Bledsoe*/

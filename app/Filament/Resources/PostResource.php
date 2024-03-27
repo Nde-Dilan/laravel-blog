@@ -28,15 +28,15 @@ class PostResource extends Resource
     {
         return $form
             ->schema([
-                Card::make(2)
+                Grid::make(2)
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 Forms\Components\TextInput::make('title')
                                     ->required()
-
-                                    ->reactive()
-                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                                    //TODO: Change this reactive to something else becauseof that my words are deleted bit by bit
+                                    // ->reactive()
+                                    // ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
 
                                     ->maxLength(2448),
                                 Forms\Components\TextInput::make('slug')
